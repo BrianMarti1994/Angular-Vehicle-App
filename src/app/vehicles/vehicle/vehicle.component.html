@@ -1,0 +1,32 @@
+<form  class="veh-form" #vehicleForm="ngForm" (ngSubmit)="onSubmit(vehicleForm)">
+<div class="form-row">
+    <div class="form-group col-md-6">
+          <input class="form-control"  name="Id" #Id="ngModel" [(ngModel)]="vehicleService.SelectedVehicle.Id" placeholder="Vehicle Id" readonly>
+          
+    </div>
+    <div class="form-group col-md-6">
+        <input class="form-control" name="Name" #Name="ngModel" [(ngModel)]="vehicleService.SelectedVehicle.Name" placeholder="Vehicle Name" required>
+        <div class="validation-error" *ngIf="Name.invalid && Name.touched">This Field is Required.</div>
+    </div>
+</div>
+<div class="form-row">
+<div class="form-group col-md-6">
+    <input class="form-control" name="Abrv" #Abrv="ngModel" [(ngModel)]="vehicleService.SelectedVehicle.Abrv" placeholder="Vehicle Abrv" required>
+    <div class="validation-error" *ngIf="Abrv.invalid && Abrv.touched">This Field is Required.</div>
+
+</div>
+<div class="form-group col-md-6">
+    <input class="form-control" name="Model" #Model="ngModel" [(ngModel)]="vehicleService.SelectedVehicle.Model" placeholder="Vehicle Model" required>
+    <div class="validation-error" *ngIf="Model.invalid && Model.touched">This Field is Required.</div>
+
+</div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <button [disabled]="!vehicleForm.valid" type="submit" class="btn btn-lg btn-block btn-info"><i class="fa fa-floppy-o"></i> Submit</button>
+    </div>
+    <div class="form-group col-md-6">
+        <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="resetForm(vehicleForm)"><i class="fa fa-repeat"></i> Rest</button>
+    </div>
+    </div>
+</form> 

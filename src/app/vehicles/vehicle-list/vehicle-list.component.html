@@ -1,0 +1,36 @@
+
+<div>
+<table class="table table-hover">
+       
+        <thead>
+            <tr>
+            <th>Id</th>
+            <th>Nmae</th>
+            <th>Abrv</th>
+            <th>Model</th>
+            <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let vehicle of vehicleService.VehicleLsit | paginate: {itemsPerPage: 3, currentPage: pageActual } ">
+            <!--  -->
+            <td>{{vehicle.Id}}</td>
+            <td>{{vehicle.Name}}</td>
+            <td>{{vehicle.Abrv}}</td>
+            <td>{{vehicle.Model}}</td>
+            <td>
+                <a class="btn" (click)="showForEdit(vehicle)">
+                    <i class="fa fa-pencil-square-o"></i>
+                </a>
+                <a class="btn text-danger" (click)="onDelete(vehicle)">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+            </td>
+           
+        </tr>
+    </tbody>
+</table>
+<pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+
+
+</div>
