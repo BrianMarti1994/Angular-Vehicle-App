@@ -22,7 +22,7 @@ export class VehicleComponent implements OnInit {
        Id:null,
        Name:'',
        Abrv:'',
-       Model:''
+       vehicleModels:null
      }
    }
 
@@ -31,7 +31,7 @@ export class VehicleComponent implements OnInit {
      this.vehicleService.postVehicle(form.value)
      .subscribe(data=>
       {this.resetForm(form)
-      this.vehicleService.getVehicleList();
+      // this.vehicleService.getVehicleList();
       this.toastr.success('New Record Added Successfully','Vehicle Register')
     });
      }
@@ -40,7 +40,7 @@ export class VehicleComponent implements OnInit {
       this.vehicleService.updateVehicle(form.value)
       .subscribe(data=>
        {this.resetForm(form)
-       this.vehicleService.getVehicleList();
+      //  this.vehicleService.getVehicleList();
        this.toastr.info('Record Updated Successfully','Vehicle Register')
       });
      }

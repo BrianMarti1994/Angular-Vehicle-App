@@ -1,23 +1,68 @@
 
-<div>
+<!-- <form class="form"  #SearchForm="ngForm" (ngSubmit)="onSubmit(SearchForm)" >
+ 
+    <div class="form-row">
+      
+      <div class="form-group col-md-3" >
+        <label for="Search">Search </label>
+        <input class="form-control" id="Search" type="text" name="Search" placeholder="Search" [(ngModel)]="Search"/>
+      </div>
+       <div class="form-group col-md-3">
+       <label for="FilterOption">Filters </label>
+       <select id ="FilterOption" name="FilterOption"  class="form-control" [(ngModel)]="FilterOption">
+     <option>--Select--</option>
+     <option>TEST1</option>
+     <option>TEST2</option>
+      </select>
+    </div>
+  
+    <div class="form-group col-md-3" >
+      <label for="SortBy">SortBy </label>
+       <select id ="SortBy" name="SortBy"  class="form-control" [(ngModel)]="SortBy">
+     <option>--Select--</option>
+     <option>TEST1</option>
+     <option>TEST2</option>
+      </select>
+    </div>
+    <div class="form-group col-md-3" >
+      <label> </label>
+      <button type="button"type="submit" class="btn btn-lg btn-block btn-warning" >GO</button>
+    </div>
+  </div>
+      
+   </form> -->
+
+   <!-- ===============Final=========================== -->
+
+   <form [formGroup]="form" >
+    
+    <div class="form-group col-md-12">
+      
+     <addSortingParams-form (newSortingParams)="addSortingParams($event)"></addSortingParams-form>
+    </div>
+    <div class="form-group col-md-12">
+      <addFilteringParams-form (newFilteringParams)="addFilteringParams($event)"></addFilteringParams-form>
+     
+    </div> 
+    
 <table class="table table-hover">
-       
+   
         <thead>
             <tr>
             <th>Id</th>
-            <th>Nmae</th>
+            <th>Name</th>
             <th>Abrv</th>
-            <th>Model</th>
             <th>Action</th>
             </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let vehicle of vehicleService.VehicleLsit | paginate: {itemsPerPage: 3, currentPage: pageActual } ">
-            <!--  -->
-            <td>{{vehicle.Id}}</td>
+      
+          <tr *ngFor="let vehicle of vehicleService.VehicleLsit ">
+           
+
+             <td>{{vehicle.Id}}</td>
             <td>{{vehicle.Name}}</td>
             <td>{{vehicle.Abrv}}</td>
-            <td>{{vehicle.Model}}</td>
             <td>
                 <a class="btn" (click)="showForEdit(vehicle)">
                     <i class="fa fa-pencil-square-o"></i>
@@ -26,11 +71,36 @@
                     <i class="fa fa-trash-o"></i>
                 </a>
             </td>
-           
+          <br>
+            <div *ngFor="let vehicleMod of vehicle.vehicleModels">
+             
+              <td>{{vehicleMod.Id}}</td>
+              <td>{{vehicleMod.Name}}</td>
+              <td>{{vehicleMod.Abrv}}</td>
+            </div>
+          
         </tr>
+        
     </tbody>
+    
 </table>
-<pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+<div class="row">
+  <div class="col-md-2">
+    <button class="form-control" type="button"  (click)="Previous()"><i class="fa fa-angle-double-left"></i></button>
+  </div>
+  <div class="col-md-2"> 
+    <input class="form-control" formControlName="PageNumber"[(ngModel)]="PageNo" value={{PageNo}} type="number">
 
-
+    <input formControlName="PageSize" [(ngModel)]="PageSize" value={{PageSize}} type="number" hidden>
+ </div> 
+  <div class="col-md-2">
+    <button class="form-control" type="button"  (click)="Next()"><i class="fa fa-angle-double-right"></i></button>
+  </div>
 </div>
+
+<pre>Sub Form Value: 
+  {{form.value | json }}</pre>
+
+</form>
+
+

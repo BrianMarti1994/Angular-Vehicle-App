@@ -9,13 +9,21 @@ import { VehicleListComponent } from './vehicles/vehicle-list/vehicle-list.compo
 import {HttpModule} from '@angular/http';
 import {ToastrModule} from 'ngx-toastr';
 import {NgxPaginationModule} from 'ngx-pagination';
+import{SortingFormComponent} from '../app/vehicles/shared/Sorting.component';
+import{FilteringFormComponent} from '../app/vehicles/shared/Filtering.component';
+import { from } from 'rxjs';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     VehiclesComponent,
     VehicleComponent,
-    VehicleListComponent
+    VehicleListComponent,
+    SortingFormComponent,
+    FilteringFormComponent
+    
   ],
   imports: [
     BrowserModule,

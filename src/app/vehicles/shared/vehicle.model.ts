@@ -1,6 +1,13 @@
-export class Vehicle {
+export class VehicleMake {
      Id :Number;
      Name :String;
      Abrv :String;
-     Model:String;
+     vehicleModels:VehicleModel[];
+}
+
+export class VehicleModel {
+     Id :Number;
+     MakeId:Number;
+     Name :String;
+     Abrv :String;
 }

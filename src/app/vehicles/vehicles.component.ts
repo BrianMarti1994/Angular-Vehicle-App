@@ -10,7 +10,7 @@ import {VehicleService} from './shared/vehicle.service'
 })
 export class VehiclesComponent implements OnInit {
 
-  constructor(private vehicleService:VehicleService) { }
+  constructor(private vehicleService:VehicleService,) { }
 
   ngOnInit(): void {
 
