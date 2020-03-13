@@ -77,8 +77,8 @@ export class VehicleListComponent implements OnInit {
     }
 
     control.push(this.fb.group(Filtering));
-     let res = this.vehicleService.getVehicleList(this.form.value);
-     alert(res);
+   this.vehicleService.getVehicleList(this.form.value);
+     
   }
   
   submit() {

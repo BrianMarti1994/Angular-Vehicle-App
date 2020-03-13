@@ -1,105 +1,88 @@
 
-<!-- <form class="form"  #SearchForm="ngForm" (ngSubmit)="onSubmit(SearchForm)" >
- 
-    <div class="form-row">
-      
-      <div class="form-group col-md-3" >
-        <label for="Search">Search </label>
-        <input class="form-control" id="Search" type="text" name="Search" placeholder="Search" [(ngModel)]="Search"/>
-      </div>
-       <div class="form-group col-md-3">
-       <label for="FilterOption">Filters </label>
-       <select id ="FilterOption" name="FilterOption"  class="form-control" [(ngModel)]="FilterOption">
-     <option>--Select--</option>
-     <option>TEST1</option>
-     <option>TEST2</option>
-      </select>
-    </div>
-  
-    <div class="form-group col-md-3" >
-      <label for="SortBy">SortBy </label>
-       <select id ="SortBy" name="SortBy"  class="form-control" [(ngModel)]="SortBy">
-     <option>--Select--</option>
-     <option>TEST1</option>
-     <option>TEST2</option>
-      </select>
-    </div>
-    <div class="form-group col-md-3" >
-      <label> </label>
-      <button type="button"type="submit" class="btn btn-lg btn-block btn-warning" >GO</button>
-    </div>
-  </div>
-      
-   </form> -->
-
-   <!-- ===============Final=========================== -->
-
    <form [formGroup]="form" >
     
-    <div class="form-group col-md-12">
-      
+    <div class="form-group row">
+      <div class="col-sm-6">
      <addSortingParams-form (newSortingParams)="addSortingParams($event)"></addSortingParams-form>
     </div>
-    <div class="form-group col-md-12">
-      <addFilteringParams-form (newFilteringParams)="addFilteringParams($event)"></addFilteringParams-form>
-     
-    </div> 
-    
+    <div class="col-sm-6">
+     <addFilteringParams-form (newFilteringParams)="addFilteringParams($event)"></addFilteringParams-form>
+    </div>
+    </div>
+ 
+
 <table class="table table-hover">
    
-        <thead>
+        <thead style="background-color:rgb(126, 146, 91);">
             <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Abrv</th>
+            <th>Make Id</th>
+            <th>Make Name</th>
+            <th>Make Abrv</th>
             <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let vehicle of vehicleService.VehicleLsit ; index as i; ">
       
-          <tr *ngFor="let vehicle of vehicleService.VehicleLsit ">
+          <tr data-toggle="collapse" [attr.data-target]="'#accordion'+ i" class="clickable" style="background-color:rgb(122, 150, 212);">
            
-
-             <td>{{vehicle.Id}}</td>
-            <td>{{vehicle.Name}}</td>
-            <td>{{vehicle.Abrv}}</td>
+              <td>{{vehicle.Id}}</td>
+              <td>{{vehicle.Name}}</td>
+              <td>{{vehicle.Abrv}}</td>
+                    
+            
             <td>
-                <a class="btn" (click)="showForEdit(vehicle)">
-                    <i class="fa fa-pencil-square-o"></i>
-                </a>
-                <a class="btn text-danger" (click)="onDelete(vehicle)">
-                    <i class="fa fa-trash-o"></i>
-                </a>
+              <a class="btn" (click)="showForEdit(vehicle)">
+                <i class="fa fa-pencil-square-o"></i>
+              </a>
+              <a class="btn text-danger" (click)="onDelete(vehicle)">
+                <i class="fa fa-trash-o"></i>
+              </a>
             </td>
-          <br>
-            <div *ngFor="let vehicleMod of vehicle.vehicleModels">
-             
-              <td>{{vehicleMod.Id}}</td>
-              <td>{{vehicleMod.Name}}</td>
-              <td>{{vehicleMod.Abrv}}</td>
-            </div>
-          
-        </tr>
+          </tr>
+
+        <tr *ngFor="let vehicleMod of vehicle.vehicleModels">
+          <td colspan="12">
+              <div  [attr.id]="'accordion'+ i" class="collapse"> 
+                <table class="table">
+                  <thead style="background-color:rgb(73, 116, 165)">
+                    <tr>
+                      <th scope="col">Model Id</th>      
+                      <th scope="col">Model Name</th>      
+                      <th scope="col">Model Abrv</th>                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>                      
+                      <td>{{vehicleMod.Id}}</td>
+                      <td>{{vehicleMod.Name}}</td>
+                      <td>{{vehicleMod.Abrv}}</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+
+          </div>
+          </td>
+      </tr>
         
     </tbody>
     
 </table>
 <div class="row">
-  <div class="col-md-2">
-    <button class="form-control" type="button"  (click)="Previous()"><i class="fa fa-angle-double-left"></i></button>
+  <div class="col-sm-1">
+    <button  class="form-control " type="button"  (click)="Previous()" style="background-color:rgb(168, 116, 116);"><i class="fa fa-angle-double-left"></i></button>
   </div>
-  <div class="col-md-2"> 
+  <div class="col-sm-1"> 
     <input class="form-control" formControlName="PageNumber"[(ngModel)]="PageNo" value={{PageNo}} type="number">
 
     <input formControlName="PageSize" [(ngModel)]="PageSize" value={{PageSize}} type="number" hidden>
  </div> 
-  <div class="col-md-2">
-    <button class="form-control" type="button"  (click)="Next()"><i class="fa fa-angle-double-right"></i></button>
+  <div class="col-sm-1">
+    <button class="form-control " type="button"  (click)="Next()" style="background-color:rgb(168, 116, 116);"><i class="fa fa-angle-double-right"></i></button>
   </div>
 </div>
 
-<pre>Sub Form Value: 
-  {{form.value | json }}</pre>
+<!-- <pre>Sub Form Value: 
+  {{form.value | json }}</pre> -->
 
 </form>
 

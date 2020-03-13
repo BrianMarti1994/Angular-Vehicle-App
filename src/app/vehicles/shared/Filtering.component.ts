@@ -9,9 +9,13 @@ import {FilterParam} from "../shared/filter.model";
 
     <div class="row">
         <div class="col-sm-6">
+        <label></label> 
+        
             <input formControlName="FilterValue" class="form-control" placeholder="Search" type="text">
         </div>
         <div class="col-sm-6">
+        <label> </label> 
+     
             <button class="form-control" class="btn btn-md btn-block btn-info"  type="submit">Search</button>
         </div>
     </div>   

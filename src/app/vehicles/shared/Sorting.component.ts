@@ -12,15 +12,14 @@ import{ToastrService} from 'ngx-toastr';
     <form [formGroup]="form">
         <div class="form-row">   
             <div class="col-sm-6">
-                <label>SortBy: </label> 
-                <select id ="SortOrder" formControlName="SortOrder"  class="form-control" (ngModelChange)="SortFunction()">
+               
+               <label>SortBy:</label><select id ="SortOrder" formControlName="SortOrder"  class="form-control" (ngModelChange)="SortFunction()">
                   <option>Asc</option>
                   <option>Desc</option>
                 </select>
             </div>
             <div class="form-group col-sm-6">
-              <label>SortColumn: </label>
-              <select id ="ColumnName" formControlName="ColumnName"  class="form-control" (ngModelChange)="SortFunction()">
+            <label>SortColumn: </label> <select id ="ColumnName" formControlName="ColumnName"  class="form-control" (ngModelChange)="SortFunction()">
               <option>Id</option>
                <option>Name</option>
                 <option>Abrv</option>
