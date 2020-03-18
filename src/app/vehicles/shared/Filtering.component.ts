@@ -9,14 +9,14 @@ import {FilterParam} from "../shared/filter.model";
 
     <div class="row">
         <div class="col-sm-6">
-        <label></label> 
         
-            <input formControlName="FilterValue" class="form-control" placeholder="Search" type="text">
+        <label ></label> 
+            <input style="margin-top:10px" formControlName="FilterValue" class="form-control" placeholder="Search" type="text">
         </div>
         <div class="col-sm-6">
-        <label> </label> 
+        <label ></label> 
      
-            <button class="form-control" class="btn btn-md btn-block btn-info"  type="submit">Search</button>
+            <button style="margin-top:10px" class="form-control" class="btn btn-md btn-block btn-info"  type="submit">Search</button>
         </div>
     </div>   
    
@@ -39,7 +39,7 @@ export class FilteringFormComponent  {
         FilterValue: ['', Validators.required]
     });
   submit() {
-   alert("Filter-Comp");
+   
       this.addFilteringParams.emit(this.form.value);
       
   }

@@ -10,4 +10,5 @@ export class VehicleModel {
      MakeId:Number;
      Name :String;
      Abrv :String;
+     vehicleMake :string;
 }

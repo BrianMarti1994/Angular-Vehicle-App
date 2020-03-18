@@ -1,6 +1,6 @@
 
    <form [formGroup]="form" >
-    
+
     <div class="form-group row">
       <div class="col-sm-6">
      <addSortingParams-form (newSortingParams)="addSortingParams($event)"></addSortingParams-form>
@@ -9,11 +9,10 @@
      <addFilteringParams-form (newFilteringParams)="addFilteringParams($event)"></addFilteringParams-form>
     </div>
     </div>
- 
 
 <table class="table table-hover">
-   
-        <thead style="background-color:rgb(126, 146, 91);">
+
+        <thead style="background-color:rgb(169, 147, 172);">
             <tr>
             <th>Make Id</th>
             <th>Make Name</th>
@@ -22,16 +21,17 @@
             </tr>
         </thead>
         <tbody *ngFor="let vehicle of vehicleService.VehicleLsit ; index as i; ">
-      
-          <tr data-toggle="collapse" [attr.data-target]="'#accordion'+ i" class="clickable" style="background-color:rgb(122, 150, 212);">
+
+          <tr  data-toggle="collapse" [attr.data-target]="'#accordion'+ i" class="clickable" style="background-color:rgb(193, 195, 201);">
            
-              <td>{{vehicle.Id}}</td>
+              <td><i class="fa fa-arrow-circle-down"></i>  {{vehicle.Id}}</td>
               <td>{{vehicle.Name}}</td>
               <td>{{vehicle.Abrv}}</td>
-                    
-            
+
+
             <td>
               <a class="btn" (click)="showForEdit(vehicle)">
+                <!-- <a class="btn" (click)="showForEdit(vehicle)"> -->
                 <i class="fa fa-pencil-square-o"></i>
               </a>
               <a class="btn text-danger" (click)="onDelete(vehicle)">
@@ -40,50 +40,164 @@
             </td>
           </tr>
 
-        <tr *ngFor="let vehicleMod of vehicle.vehicleModels">
+        <tr >
           <td colspan="12">
-              <div  [attr.id]="'accordion'+ i" class="collapse"> 
+              <div  [attr.id]="'accordion'+ i" class="collapse">
+                <div class="row">
+                  <div class="col-md-5"></div>
+                  <div   class="col-md-4"></div>
+                  <div   class="col-sm-1"></div>
+                 <div    class="col-sm-2"> <button class="btn btn-default btn-sm" type="button"  (click)="openModal(template,vehicle)" style="background-color:rgb(35, 169, 187); margin-left: 6.5em;"><i class="fa fa-plus-square"></i> ADD</button></div>
+
+                </div>
                 <table class="table">
-                  <thead style="background-color:rgb(73, 116, 165)">
+
+                  <thead style="background-color:rgb(115, 140, 168)">
+
                     <tr>
-                      <th scope="col">Model Id</th>      
-                      <th scope="col">Model Name</th>      
-                      <th scope="col">Model Abrv</th>                      
+                      <th scope="col">Model Id</th>
+                      <th scope="col">Model Name</th>
+                      <th scope="col">Model Abrv</th>
+                      <th scope="col">Action</th>
+
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>                      
+                    <tr *ngFor="let vehicleMod of vehicle.vehicleModels">
                       <td>{{vehicleMod.Id}}</td>
                       <td>{{vehicleMod.Name}}</td>
                       <td>{{vehicleMod.Abrv}}</td>
-                    </tr>                    
+                      <td>
+                        <a class="btn" (click)="showForEditModel(template,vehicle,vehicleMod.Id)">
+                          <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                        <a class="btn text-danger" (click)="onDeleteModel(vehicleMod)">
+                          <i class="fa fa-trash-o"></i>
+                        </a>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
 
           </div>
           </td>
       </tr>
-        
+
     </tbody>
-    
+
 </table>
+
+
 <div class="row">
   <div class="col-sm-1">
-    <button  class="form-control " type="button"  (click)="Previous()" style="background-color:rgb(168, 116, 116);"><i class="fa fa-angle-double-left"></i></button>
+    <button  class="form-control " type="button"  (click)="Previous()" style="background-color:rgb(58, 186, 209);"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
   </div>
-  <div class="col-sm-1"> 
-    <input class="form-control" formControlName="PageNumber"[(ngModel)]="PageNo" value={{PageNo}} type="number">
+  <div class="col-sm-1">
+    <button class="form-control " type="button"  (click)="Next()" style="background-color:rgb(58, 186, 209);"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+  </div>
+  <div class="col-sm-1">
+    <input class="form-control" formControlName="PageNumber" [(ngModel)]="PageNo" value={{PageNo}} type="number" hidden >
 
     <input formControlName="PageSize" [(ngModel)]="PageSize" value={{PageSize}} type="number" hidden>
- </div> 
-  <div class="col-sm-1">
-    <button class="form-control " type="button"  (click)="Next()" style="background-color:rgb(168, 116, 116);"><i class="fa fa-angle-double-right"></i></button>
-  </div>
+
+ </div>
+
+
 </div>
 
-<!-- <pre>Sub Form Value: 
-  {{form.value | json }}</pre> -->
-
 </form>
+<form [formGroup]="Modelform" >
+  <ng-template #template>
+    <div class="modal-header text-center" style="background-color: burlywood; ">
+    
+        <h2 class="modal-title w-100">Vehicle Model</h2>
+   
+    </div>
+    
+        <div class="modal-body">
+        
+          <div *ngIf="vehicleService.SelectedVehicle.vehicleModels.length > 0; else AddNewEntry" >
+          
+          <div *ngFor="let vehicleModel of vehicleService.SelectedVehicle.vehicleModels; index as i;" >
+          
+            <div *ngIf="ActionType === 'Add'; else UpdateBlock ">
+             
+            <span *ngIf="i === 0">
+              <!-- <input class="form-control" formControlName="Id" value=""  > -->
+              <input class="form-control" formControlName="MakeId"  [(ngModel)] = "vehicleModel.MakeId" value = {{vehicleModel.MakeId}} placeholder="Vehicle MakeId"  hidden>
+            
+             <div class="form-row">
+               <div class="form-group col-md-6"> 
+              <input class="form-control"  formControlName="Name" placeholder="Model Name">
+            </div>
+            
+              <div class="form-group col-md-6">
+              <input class="form-control"  formControlName="Abrv" placeholder="Model Abrv">
+            </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6"> 
+              <button  class="btn btn-lg btn-block btn-info" type="button"  (click)="AddModel()" style="background-color:rgb(41, 149, 163);"><i class="fa fa-floppy-o"></i> Save</button>
+            </div>
+            </div>
+            
+        </span>
+      </div>
+      <ng-template #UpdateBlock>
+        <div *ngIf="ActionType === 'Update'"> 
+          <div *ngIf="vehicleModel.Id === ModelId "> 
+            <!-- <div *ngFor="let vehicleModel of vehicleService.SelectedVehicle.vehicleModels; index as i;" > -->
+              <input class="form-control" formControlName="Id" [(ngModel)] = "vehicleModel.Id" value = {{vehicleModel.Id}} hidden > 
+            <input class="form-control" formControlName="MakeId"  [(ngModel)] = "vehicleModel.MakeId" value = {{vehicleModel.MakeId}} placeholder="Vehicle MakeId" hidden >
+            
+            <div class="form-row">
+              <div class="form-group col-md-6"> 
+             <input class="form-control"  formControlName="Name"  [(ngModel)] = "vehicleModel.Name" value = {{vehicleModel.Name}} placeholder="Model Name">
+           </div>
+           
+             <div class="form-group col-md-6">
+             <input class="form-control"  formControlName="Abrv" [(ngModel)] = "vehicleModel.Abrv" value = {{vehicleModel.Abrv}} placeholder="Model Abrv">
+           </div>
+           </div>
+           <div class="form-row">
+            <div class="form-group col-md-6"> 
+            <button  class="btn btn-lg btn-block btn-info" type="button"  (click)="UpdateModel()" style="background-color:rgb(41, 149, 163);"><i class="fa fa-floppy-o"></i> Update</button>
+          </div>
+          <div class="form-group col-md-6"> 
+            <button  class="btn btn-lg btn-block btn-info" type="button"  (click)="modalRef.hide()" style="background-color:rgb(25, 28, 29);"> Close</button>
+          </div>
+          </div>
+        </div> 
+        </div>
+      </ng-template>
 
+     
+         </div>
+        </div>
+        <ng-template #AddNewEntry>
+         
+          <input class="form-control" formControlName="MakeId"  [(ngModel)] = "vehicleService.SelectedVehicle.Id" value = {{vehicleService.SelectedVehicle.Id}} placeholder="Vehicle MakeId" hidden >
+          <!-- <input class="form-control" formControlName="Id" > -->
+          <div class="form-row">
+            <div class="form-group col-md-6"> 
+           <input class="form-control"  formControlName="Name"  placeholder="Model Name">
+         </div>
+         
+           <div class="form-group col-md-6">
+           <input class="form-control"  formControlName="Abrv"  placeholder="Model Abrv">
+         </div>
+         </div>
+         <div class="form-row">
+          <div class="form-group col-md-6"> 
+            <button  class="btn btn-lg btn-block btn-info" type="button"  (click)="AddModel()" style="background-color:rgb(41, 149, 163);"><i class="fa fa-floppy-o"></i> Save</button>
+        </div>
+        </div>
+      
+    </ng-template>
+        </div>
+    
+    </ng-template>
+
+   
+</form>
 

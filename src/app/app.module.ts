@@ -12,6 +12,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import{SortingFormComponent} from '../app/vehicles/shared/Sorting.component';
 import{FilteringFormComponent} from '../app/vehicles/shared/Filtering.component';
 import { from } from 'rxjs';
+import {ModalModule} from 'ngx-bootstrap/modal'
 
 
 
@@ -33,7 +34,8 @@ import { from } from 'rxjs';
     HttpModule,
     BrowserModule,
     NgxPaginationModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

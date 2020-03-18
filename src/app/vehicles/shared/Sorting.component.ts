@@ -13,13 +13,13 @@ import{ToastrService} from 'ngx-toastr';
         <div class="form-row">   
             <div class="col-sm-6">
                
-               <label>SortBy:</label><select id ="SortOrder" formControlName="SortOrder"  class="form-control" (ngModelChange)="SortFunction()">
+              <label>Sort By</label> <select id ="SortOrder"  formControlName="SortOrder"  class="form-control" (ngModelChange)="SortFunction()">
                   <option>Asc</option>
                   <option>Desc</option>
                 </select>
             </div>
             <div class="form-group col-sm-6">
-            <label>SortColumn: </label> <select id ="ColumnName" formControlName="ColumnName"  class="form-control" (ngModelChange)="SortFunction()">
+            <label>Sort Column</label> <select id ="ColumnName"  formControlName="ColumnName"  class="form-control" (ngModelChange)="SortFunction()">
               <option>Id</option>
                <option>Name</option>
                 <option>Abrv</option>
@@ -40,7 +40,7 @@ import{ToastrService} from 'ngx-toastr';
   export class SortingFormComponent  {
     constructor(public vehicleService : VehicleService,private toastr:ToastrService,private fb: FormBuilder) {}
    
-    nrSelect = "Asc"
+   
     
     @Output('newSortingParams') addSortingParams: EventEmitter<SortingParams> = new EventEmitter<SortingParams>();
   
@@ -51,16 +51,11 @@ import{ToastrService} from 'ngx-toastr';
   
 
     SortFunction(){
-      alert(JSON.stringify(this.form.value))
+     
       this.addSortingParams.emit(this.form.value);
-  //  let VehicleListComponentonj = new VehicleListComponent(this.vehicleService,this.toastr,this.fb)
-  //  VehicleListComponentonj.addSortingParams(this.form.value);
+  
     }
 
-    // submit() {
-     // <button class="form-control" class="btn btn-md btn-block btn-info"  type="submit">sort</button>
-    //   this.addSortingParams.emit(this.form.value);
-    //   this.form.reset();
-    // }
+    
   
   }

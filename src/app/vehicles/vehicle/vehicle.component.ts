@@ -13,6 +13,7 @@ export class VehicleComponent implements OnInit {
   constructor(public vehicleService : VehicleService,private toastr:ToastrService ) { }
 
   ngOnInit(): void {
+   
     this.resetForm();
   }
    resetForm(form?:NgForm){
@@ -23,6 +24,13 @@ export class VehicleComponent implements OnInit {
        Name:'',
        Abrv:'',
        vehicleModels:null
+     }
+     this.vehicleService.SelectedVehicleModel={
+      Id:null,
+      MakeId:null,
+      Name:'',
+      Abrv:'',
+      vehicleMake:null
      }
    }
 
